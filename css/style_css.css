@@ -1,0 +1,133 @@
+@charset "utf-8";
+
+/*  czcionki */
+
+@import url(http://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple|3d);
+
+@import url(http://fonts.googleapis.com/css?family=Dosis:700,800&subset=latin,latin-ext);
+
+@font-face {font-family:'ColaborateThinRegular';src:url('../fonts/colabthi-webfont.eot');src:local('O'), url('../fonts/colabthi-webfont.woff') format('woff'), url('../fonts/colabthi-webfont.ttf') format('truetype'), url('../fonts/colabthi-webfont.svg#webfontBuy3ZjAx') format('svg');font-weight:normal;font-style:normal}
+@font-face {font-family:'ColaborateBoldRegular';src:url('../fonts/colabbol-webfont.eot');src:local('O'), url('../fonts/colabbol-webfont.woff') format('woff'), url('../fonts/colabbol-webfont.ttf') format('truetype'), url('../fonts/colabbol-webfont.svg#webfonti43fy0NT') format('svg');font-weight:normal;font-style:normal}
+@font-face {font-family:'ColaborateRegular';src:url('../fonts/colabreg-webfont.eot');src:local('O'), url('../fonts/colabreg-webfont.woff') format('woff'), url('../fonts/colabreg-webfont.ttf') format('truetype'), url('../fonts/colabreg-webfont.svg#webfontdC3uTxCK') format('svg');font-weight:normal;font-style:normal}
+@font-face {font-family:'CalibriBold';src:url('../fonts/calibrib-webfont.eot');src:local('O'), url('../fonts/calibrib-webfont.woff') format('woff'), url('../fonts/calibrib-webfont.ttf') format('truetype'), url('../fonts/calibrib-webfont.svg#webfontbOpCiIlZ') format('svg');font-weight:normal;font-style:normal}
+
+
+/*  KONIEC czcionki */
+* { padding: 0; margin: 0; }
+
+html, body {background-attachment: fixed; background-size:100% 100%; background-color:#2E2E2E;font-family:"Dosis", sans-serif;}
+/* */
+ul, li {list-style: none;}
+a {	color:white; text-decoration:none; outline:none;}
+
+#kontener{
+	width: 978px;
+	margin: 0 auto;
+	position:relative;
+	
+	
+}
+/*TABELA*/
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+th,td {
+    padding: 5px 10px 5px 10px;
+}
+
+
+/* unvisited link */
+a:link {
+    color: #FF0033;
+}
+
+/* visited link */
+a:visited {
+    color: #FF0033;
+}
+
+/* mouse over link */
+a:hover {
+    color: #FFFFFF;
+}
+
+/* selected link */
+a:active {
+    color: #FFFFFF;
+}
+
+
+
+/*FORMULARZ*/
+
+
+#send1,#send,#powrot{	
+		background:black;
+		width: 180px;
+		height: 35px;
+		border: 1;
+		font-family:'ColaborateBoldRegular';font-weight:normal;
+		color:#fff;text-decoration:none;
+		font-size:18px;
+		}
+		
+#send1:hover{background:grey;}
+		
+
+
+
+/****************************************/
+
+
+/*MENU*/
+header { padding:20px 50px 20px 50px; overflow:hidden;background:#330033; min-height:40px;}
+
+header h1 {background:url(../images/logo.png) no-repeat 0 0;padding:2px 0 0 38px;font-family:'ColaborateThinRegular';font-size:26px;line-height:1.2em;color:#fff;font-weight:normal;float:left}
+		header h1 a {color:#fff;text-decoration:none}
+			header h1 strong {font-family:'Dosis', sans-serif;font-weight:normal}
+header nav {padding:7px 0 10px 0}
+	header nav ul {float:right;padding:2px 0 0 0}
+		header nav ul li {float:left;padding-left:4px}
+			header nav ul li a {position:relative;float:left;font-size:18px;color:#fff;text-decoration:none;font-family:'Dosis', sans-serif;padding:0 10px 0 10px;}
+			header nav ul li a:hover, header nav ul li a.current { color: #FFFFFF; border-bottom: 3px #fb6608 solid;}
+			
+
+
+/*MENU-KONIEC*/
+
+header nav ul li bb{position:relative;float:left;font-size:18px;color:#fff;text-decoration:none;font-family:'Dosis', sans-serif; padding:0 36px 0 10px;}
+header nav ul li bb.current { color: #FFFFFF; border-bottom: 3px #fb6608 solid;}
+						
+
+
+#alert p{color:red; font-size: 1.5em; font-family:"Segoe UI Semibold", sans-serif,Arial;}
+
+
+
+
+
+#kontener-start{min-height:400px;margin-top:40px;height:auto;background:#2E2E2E;margin-bottom:40px;}
+#start-tresc{font-family: 'ColaborateRegular', sans-serif;margin:0px 0px 0px 0px;padding:30px;color:white;font:16px;text-shadow: 1px 1px 0px rgba(255,255,255,0.1);}
+
+#start-wynik{font-family: 'ColaborateRegular', sans-serif;margin:0px 0px 0px 0px;padding:30px;color:#b1b2ba;font:16px;text-shadow: 1px 1px 0px rgba(255,255,255,0.1);}
+
+/*STOPKA*/
+
+#stopka{height:25px;background-color:#330033; border-top:1px solid #444; border-bottom:1px solid #444; box-shadow:0px 0px 8px rgba(0, 0, 0, 0.15);
+position:fixed;bottom:-1px;left:0px;width:100%;z-index:1000;}
+#stopkaR{float:right;}
+#stopkaR p{padding:4px 10px 10px 20px;color:white; line-height:1.2em; font:16px 'ColaborateRegular';text-shadow: 1px 1px 0px rgba(255,255,255,0.1);}
+#stopkaR a{color:#FFFFFF;}
+#stopkaR a:visited{color:#FFFFFF;}
+#stopkaR a:hover{color:#ee5f09;}
+#stopkaL{float:left;}
+#stopkaL p{padding:4px 0 15px 20px;color:white;line-height:1.2em; font:16px 'ColaborateRegular';text-shadow: 1px 1px 0px rgba(255,255,255,0.1);}
+/*STOPKA-KONIEC*/
+
+/*********************************/
+
+
+
+
