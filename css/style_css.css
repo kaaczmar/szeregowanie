@@ -2,9 +2,7 @@
 
 /*  czcionki */
 
-@import url(http://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple|3d);
 
-@import url(http://fonts.googleapis.com/css?family=Dosis:700,800&subset=latin,latin-ext);
 
 @font-face {font-family:'ColaborateThinRegular';src:url('../fonts/colabthi-webfont.eot');src:local('O'), url('../fonts/colabthi-webfont.woff') format('woff'), url('../fonts/colabthi-webfont.ttf') format('truetype'), url('../fonts/colabthi-webfont.svg#webfontBuy3ZjAx') format('svg');font-weight:normal;font-style:normal}
 @font-face {font-family:'ColaborateBoldRegular';src:url('../fonts/colabbol-webfont.eot');src:local('O'), url('../fonts/colabbol-webfont.woff') format('woff'), url('../fonts/colabbol-webfont.ttf') format('truetype'), url('../fonts/colabbol-webfont.svg#webfonti43fy0NT') format('svg');font-weight:normal;font-style:normal}
@@ -63,7 +61,7 @@ a:active {
 /*FORMULARZ*/
 
 
-#send1,#send,#powrot{	
+#send1,#back,#send,#powrot{	
 		background:black;
 		width: 180px;
 		height: 35px;
@@ -73,7 +71,7 @@ a:active {
 		font-size:18px;
 		}
 		
-#send1:hover{background:grey;}
+#send1,#back:hover{background:grey;}
 		
 
 

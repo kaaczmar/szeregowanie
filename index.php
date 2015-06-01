@@ -57,7 +57,7 @@
 		<center>
 		PROBLEM SZEREGOWANIA ZADAŃ PROBLEM LIU - LAYLANDA<br><br>
 		Wprowadź dane za pomocą formularzy<br><br>
-		<a href="documentation/index.html" target=_blank>PRZEJDŹ DO DOKUMETACJI</a><br><br>
+		<a href="DOC/index.html" target=_blank>PRZEJDŹ DO DOKUMETACJI</a><br><br>
 				<?php
 
 

@@ -1,13 +1,13 @@
 ﻿<?php
 /**
- * PROBLEM PRZYDZIALU MIEJSC W PARLEMENCIE METODA HAMILTONA
+ * PROBLEM SZEREGOWANIA
  *
  *<p>WPROWADZANIE INSTANCJI PROBLEMU ZA POSREDNICTWEM FORMULARZA</p>
  * 
  * @author      Patryk Kaczmarek & Szymon Marcinkowski
  * @copyright   Metody Optymalizacji 2015
- * @link        http://www.kaaczmar.pl/hamilton
- * @package		HAMILTON
+ * @link        http://www.kaaczmar.pl/szeregowanie
+ * @package		SZEREGOWANIE
  */
  
 ?>
@@ -27,6 +27,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="css/style_css.css">
 	<link rel="stylesheet" type="text/css" href="css/form.css">
+	<script type="text/javascript" src="script.js"></script>
 	
 	  
 </head> 
@@ -73,10 +74,10 @@
 						// jeśli spełnione są warunki wyświetlany jest formularz
 											
 				
-									echo "<form action='index-3.php' method='post' id='contactform'>";
+									echo "<form action='index-3.php' method='post' id='contactform' name='contactform'>";
 									echo    "<fieldset>";
-									echo    "<legend>Informacje o stanach biorących udział w głosowaniu</legend>";
-									echo"<br>";
+									echo    "<legend>Informacje o zadaniach do uszeregowania</legend>";
+									echo"<br>";								
 									echo "<table><tr><td>Lp.</td><td>Nazwa Zadania</td><td>Czas Zadania</td><td>Okres Zadania</td></tr>";
 									
 											 for ($zz=0; $zz<$sprawdz; $zz++)
@@ -84,15 +85,18 @@
 													echo"<tr><td><center>".($zz+1).".</center></td>";
 													
 														echo"<td><input type='text' id='nazwa_zadania$zz' name='nazwa_zadania$zz'  placeholder='nazwa zadania ".($zz+1)."' required='required' value='zadanie".($zz+1)."' autocomplete='off' /></td>";
-														echo"<td><input type='number' id='czas_zadania$zz' name='czas_zadania$zz' min='1' placeholder='czas zadania ".($zz+1)."' required='required' autocomplete='off'/></td>";														
+														echo"<td><div><input type='number' id='czas_zadania$zz' name='czas_zadania$zz' min='1' placeholder='czas zadania ".($zz+1)."' required='required' autocomplete='off'/></div></td>";														
 														echo"<td><input type='number' id='okres_zadania$zz' name='okres_zadania$zz' min='1' placeholder='okres zadania ".($zz+1)."' required='required' autocomplete='off'/></td></tr>";
 														
 													
 												}
 									echo "</table>";
 									echo"<br>";
-									echo"<input type='hidden' name='liczbaZ' value='$sprawdz' />";
+									echo"<div><input type='hidden' name='liczbaZ' id='liczbaZ' value='$sprawdz' /></div>";
+									echo"<input type='button' value='POWRÓT' id='back' name='back' />";
 									echo"<input type='submit' value='DALEJ' id='send' name='send' />";
+									echo"<br><br>";
+									echo"<div class='blad' id='blad' style=\"color:yellow; font-size:x-large\" ></div>";
 									echo"<br><br>";
 									echo"</fieldset>";
 									echo"</form>";

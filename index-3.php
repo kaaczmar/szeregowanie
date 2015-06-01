@@ -1,16 +1,15 @@
 ﻿<?php
 /**
- * PROBLEM PRZYDZIALU MIEJSC W PARLEMENCIE METODA HAMILTONA
+ * PROBLEM SZEREGOWANIA ZADAN
  
  * @author      Patryk Kaczmarek & Szymon Marcinkowski
  * @copyright   Metody Optymalizacji 2015
- * @link        http://www.kaaczmar.pl/hamilton
- * @package		HAMILTON
+ * @link        http://www.kaaczmar.pl/szeregowanie
+ * @package		SZEREGOWANIE
  */
 require ("szeregowanie.php"); 
  $szeregowanie = new szeregowanie;
  ?>
-
 <!DOCTYPE HTML> 
 <html lang="pl">
 <head>
@@ -60,9 +59,6 @@ function PokazAkapit()
 </head> 
 
 <body>
-
-
-
 <header>
 		<nav>
 			<div class="container">
@@ -120,10 +116,92 @@ function PokazAkapit()
 					//KROK PIERWSZY
 					
 					echo "<font size=\"5\">KROK PIERWSZY:</font><br>";
+					echo "<font size=\"3\">Obliczamy NWW - Najmniejszą Wspólną Wielokrotność dla wszystkich okresów zadań:</font><br>";
+					$szeregowanie->NWW_c = $szeregowanie->NWW();
+					echo "<p style=\"color:white\"> <font size=\"5\"> NWW: ".$szeregowanie->NWW_c."</font></p><br><br>";
+										
+					echo "<font size=\"5\">KROK DRUGI:</font><br>";
+					echo "<font size=\"3\">Obliczamy częstotliwość szeregowania dla wszystkich zadań:</font><br>";
+					$szeregowanie->czestotliwosc();
+					
+					echo "<table><tr style=\"color:white\"><td>Lp.</td><td>Nazwa zadania</td><td>Czas zadania</td><td>Okres zadania</td><td>CZĘSTOTLIWOŚĆ</td></tr>";
+					
+							 for ($z=0; $z<$szeregowanie->liczba_zadan_c; $z++)
+								{	
+									echo"<tr style=\"color:white\"><td style=\"color:white\"><center><font size=\"5\">".($z+1).".</font></center></td>";
+									echo"<td style=\"color:white\"><font size=\"5\">".$szeregowanie->nazwa_zadan_c[$z]."</font></td>";
+									echo"<td style=\"text-align:right\"><font size=\"5\">".$szeregowanie->czas_zadan_c[$z]."</font></td>";	
+									echo"<td style=\"color:white\"><center><font size=\"5\">".$szeregowanie->okres_zadan_c[$z]."</font></center></td>";
+									echo"<td style=\"color:red\"><center><font size=\"5\">".$szeregowanie->czestotliwosc_c[$z]."</font></center></td></tr>";
+								}
+					echo "</table><br><br>";
+					
+					echo "<font size=\"5\">KROK TRZECI:</font><br>";
+					echo "<font size=\"3\">TRANSFORMACJA do problemu przydziału:</font><br>";
+					$szeregowanie->transformacja();
+					
+					echo "<table><tr style=\"color:white\"><td>Lp.</td><td>Nazwa zadania</td><td>Czas zadania</td><td>Okres zadania</td><td>TRANSFORMACJA</td></tr>";
+					
+							 for ($z=0; $z<$szeregowanie->liczba_zadan_c; $z++)
+								{	
+									echo"<tr style=\"color:white\"><td style=\"color:white\"><center><font size=\"5\">".($z+1).".</font></center></td>";
+									echo"<td style=\"color:white\"><font size=\"5\">".$szeregowanie->nazwa_zadan_c[$z]."</font></td>";
+									echo"<td style=\"text-align:right\"><font size=\"5\">".$szeregowanie->czas_zadan_c[$z]."</font></td>";	
+									echo"<td style=\"color:white\"><center><font size=\"5\">".$szeregowanie->okres_zadan_c[$z]."</font></center></td>";
+									echo"<td style=\"color:red\"><center><font size=\"5\">".$szeregowanie->transformacja_c[$z]."</font></center></td></tr>";
+								}
+					echo "</table><br><br>";
+					
+					
+					echo "<br>";
+					
+					echo "<font size=\"5\">KROK CZWARTY:</font><br>";
+					echo "<font size=\"3\">Testy dolnej kwoty i wybór zadania o największym priorytecie:</font><br><br>";
+					$a1 = 0;
+					$aCZAS = 0;
+					
+					$STOP = true;
+					
+					while($STOP == true)
+					{
+					
+					
+					$szeregowanie->przydzial($a1);
+										
+					 						
+					 if ( ($szeregowanie->NWW_c - $aCZAS+1) < $szeregowanie->czas_zadan_c[ $szeregowanie->kolejnosc_c[$a1] ] ) $STOP = false;
+					    
+					if ($STOP == true)
+					{
+						$iter = $a1+1;
+						echo "<font size=\"3\">ITERACJA: $iter</font><br>";
+							
+							
+							echo "<table><tr style=\"color:white\"><td>Lp.</td><td>Nazwa zadania</td><td>PRIORYTET</td></tr>";
+						
+								 for ($z=0; $z<$szeregowanie->liczba_zadan_c; $z++)
+									{	
+										echo"<tr style=\"color:white\"><td style=\"color:white\"><center><font size=\"3\">".($z+1).".</font></center></td>";
+										echo"<td style=\"color:white\"><font size=\"3\">".$szeregowanie->nazwa_zadan_c[$z]."</font></td>";
+										echo"<td style=\"color:red\"><center><font size=\"3\">".$szeregowanie->priorytet_c[$z]."</font></center></td></tr>";
+									}
+						echo "</table>";
+						
+						echo "<font size=\"3\">WYBÓR: ".$szeregowanie->nazwa_zadan_c[$szeregowanie->kolejnosc_c[$a1]]."</font><br><br>";
+						
+					   //$aCZAS = $aCZAS + $szeregowanie->czas_zadan_c[ $szeregowanie->kolejnosc_c[$a1] ];
+					   $aCZAS = $aCZAS + $szeregowanie->czas_zadan_c[ $szeregowanie->kolejnosc_c[$a1] ] ;
+					   $szeregowanie->ILE = $a1;					  
+						
+						$a1++;
+					}	
+						
+					}
+					
 					
 			
 					//////////////////////////////////////////////////////////////////////////////////////////////////
-					
+					echo "<br>";
 				
 					echo "<p><a href=\"#\" id=\"link2\" onclick=\"SchowajAkapit();\">SCHOWAJ SZCZEGÓŁY ALGORYTMU</a></p><br><br>"; //ukrywanie działania algorytmu
 				
@@ -137,14 +215,14 @@ function PokazAkapit()
 					
 					
 					echo "<font size=\"5\">Lista ZADAŃ </font>";
-					echo "<table><tr style=\"color:white\"><td>Lp.</td><td>Nazwa zadania</td><td>Czas zadania</td><td>Okres zadania</td></tr>";
+					echo "<table><tr style=\"color:white\"><td>Lp.</td><td>Nazwa zadania</td><td>Czas zadania [Ci]</td><td>Okres zadania [Ti]</td></tr>";
 					
 							 for ($z=0; $z<$szeregowanie->liczba_zadan_c; $z++)
 								{	
 									echo"<tr style=\"color:white\"><td style=\"color:white\"><center><font size=\"5\">".($z+1).".</font></center></td>";
 									echo"<td style=\"color:white\"><font size=\"5\">".$szeregowanie->nazwa_zadan_c[$z]."</font></td>";
 									echo"<td style=\"text-align:right\"><font size=\"5\">".$szeregowanie->czas_zadan_c[$z]."</font></td>";									
-									echo"<td style=\"color:red\"><center><font size=\"5\">".$szeregowanie->okres_zadan_c[$z]."</font></center></td></tr>";
+									echo"<td><center><font size=\"5\">".$szeregowanie->okres_zadan_c[$z]."</font></center></td></tr>";
 								}
 					echo "</table><br><br>";
 					
@@ -167,13 +245,42 @@ function drawChart() {
   dataTable.addColumn({ type: 'number', id: 'Start' });
   dataTable.addColumn({ type: 'number', id: 'End' });
   dataTable.addRows([
-    [ 'ZADANIE1',   0,  2 ],
-	[ 'ZADANIE1',  5,7 ],
-    [ 'ZADANIE1', 10,12 ],
-    [ 'ZADANIE2', 3,5],
-    [ 'ZADANIE2', 8, 10 ],
-    [ 'ZADANIE2', 13, 15 ],
-	[ 'ZADANIE3', 13, 15 ]
+  
+
+  <?php
+ $OD=0; $DO=0; 
+$tmpOD[]=0; $tmpDO[]=0;
+
+for ($i=0; $i<($szeregowanie->ILE+1);$i++ )	
+{
+	if ($i == 0)
+	{
+		$OD=0;
+		$DO = $szeregowanie->czas_zadan_c[$szeregowanie->kolejnosc_c[$i]];
+		echo " ['".$szeregowanie->nazwa_zadan_c[$szeregowanie->kolejnosc_c[$i]]."',".$OD."000,".$DO."000]";
+		
+		if ( $i != ($szeregowanie->NWW_c-1) ) {echo",";}
+		$tmpOD[$szeregowanie->kolejnosc_c[$i]] = $szeregowanie->okres_zadan_c[ $szeregowanie->kolejnosc_c[$i] ];
+		
+	}
+	else
+	{
+			
+				$OD = $DO;
+				$DO = $OD + $szeregowanie->czas_zadan_c[$szeregowanie->kolejnosc_c[$i]];
+			
+			
+			
+			
+	
+	echo " ['".$szeregowanie->nazwa_zadan_c[$szeregowanie->kolejnosc_c[$i]]."',".$OD."000,".$DO."000]";
+	if ( $i != ($szeregowanie->NWW_c-1) ) {echo",";}
+	
+	}
+						 
+}
+    
+?>
    ]);            
                   
   var options = { 
