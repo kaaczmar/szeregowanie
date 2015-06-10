@@ -90,11 +90,11 @@
 									echo    "<fieldset>";
 									echo    "<legend>Informacje o zadaniach do uszeregowania</legend>";
 									echo"<br>";								
-									echo "<table><tr><td>Lp.</td><td>Nazwa Zadania</td><td>Czas Zadania</td><td>Okres Zadania</td></tr>";
+									echo "<table><tr><td><font color=\"white\">Lp.</font></td><td><font color=\"white\">Nazwa Zadania</font></td><td><font color=\"white\">Czas Zadania</font></td><td><font color=\"white\">Okres Zadania</font></td></tr>";
 									$tmpILE = 0;
 											 for ($zz=0; $zz<$ileBYLO; $zz++)
 												{	
-													echo"<tr><td><center>".($zz+1).".</center></td>";
+													echo"<tr><td><center><font color=\"white\">".($zz+1)."</font></center></td>";
 													
 														echo"<td><input type='text' id='nazwa_zadania$zz' name='nazwa_zadania$zz'  placeholder='nazwa zadania ".($zz+1)."' required='required' value='".$PRE->nazwa_zadan_c[$zz]."' autocomplete='off' /></td>";
 														echo"<td><div><input type='number' id='czas_zadania$zz' name='czas_zadania$zz' min='1' placeholder='czas zadania ".($zz+1)."' required='required' value='".$PRE->czas_zadan_c[$zz]."' autocomplete='off'/></div></td>";														
@@ -107,7 +107,7 @@
 												
 												for ($zz=$tmpILE; $zz<$sprawdz; $zz++)
 												{	
-													echo"<tr><td><center>".($zz+1).".</center></td>";
+													echo"<tr><td><center><font color=\"white\">".($zz+1).".</font></center></td>";
 													
 														echo"<td><input type='text' id='nazwa_zadania$zz' name='nazwa_zadania$zz'  placeholder='nazwa zadania ".($zz+1)."' required='required' value='zadanie".($zz+1)."' autocomplete='off' /></td>";
 														echo"<td><div><input type='number' id='czas_zadania$zz' name='czas_zadania$zz' min='1' placeholder='czas zadania ".($zz+1)."' required='required' autocomplete='off'/></div></td>";														
@@ -141,11 +141,11 @@
 									echo    "<fieldset>";
 									echo    "<legend>Informacje o zadaniach do uszeregowania</legend>";
 									echo"<br>";								
-									echo "<table><tr><td>Lp.</td><td>Nazwa Zadania</td><td>Czas Zadania</td><td>Okres Zadania</td></tr>";
+									echo "<table><tr><td><font color=\"white\">Lp.</font></td><td><font color=\"white\">Nazwa Zadania</font></td><td><font color=\"white\">Czas Zadania</font></td><td><font color=\"white\">Okres Zadania</font></td></tr>";
 									
 											 for ($zz=0; $zz<$sprawdz; $zz++)
 												{	
-													echo"<tr><td><center>".($zz+1).".</center></td>";
+													echo"<tr><td><center><font color=\"white\">".($zz+1)."</font></center></td>";
 													
 														echo"<td><input type='text' id='nazwa_zadania$zz' name='nazwa_zadania$zz'  placeholder='nazwa zadania ".($zz+1)."' required='required' value='zadanie".($zz+1)."' autocomplete='off' /></td>";
 														echo"<td><div><input type='number' id='czas_zadania$zz' name='czas_zadania$zz' min='1' placeholder='czas zadania ".($zz+1)."' required='required' autocomplete='off'/></div></td>";														

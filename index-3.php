@@ -332,7 +332,7 @@ for ($i=0; $i<($szeregowanie->NWW_c);$i++ )
 	 
 	 <?php
 	 
-	 $wys = $szeregowanie->liczba_zadan_c * 70;
+	 $wys = $szeregowanie->liczba_zadan_c * 80;
 	 
 	  echo "<div id='example5.1' style='width: 900px; height:".$wys."px;'></div>";
 		
