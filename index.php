@@ -66,7 +66,7 @@
 						echo"<legend><strong>Podaj ilość zadań</strong></legend>";
 						echo "<br>";
 						echo" <label>LICZBA ZADAŃ:</label><br>";
-						echo"<input type='number' id='liczba_zadan' name='liczba_zadan' placeholder='liczba zadań' required='required' min='1' max='10' autocomplete='off'/><br><br>"; 
+						echo"<input type='number' id='liczba_zadan' name='liczba_zadan' placeholder='liczba zadań' required='required' min='1' max='8' autocomplete='off'/><br><br>"; 
 						echo"<input type='submit' value='Dalej' id='send1' name='send1' />";
 						echo"<br><br>";
 						echo"</fieldset>";

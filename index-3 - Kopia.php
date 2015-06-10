@@ -94,30 +94,23 @@ function PokazAkapit()
 				
 				if ( isset($_POST["send"]) ) 
 					{		
-					$limitNWW = 40;
+				
 					$szeregowanie->wczytywanie();
-					
-					echo "<p style=\"color:white\"> <font size=\"2\"> Limit NWW w programie max: ".$limitNWW."</font></p><br>";
-					$szeregowanie->NWW_c = $szeregowanie->NWW();
-					
-					if ( $szeregowanie->NWW_c > $limitNWW ) 
-					{
-						echo "<p style=\"color:white\"> <font size=\"5\"> NWW: ".$szeregowanie->NWW_c."</font></p><br><br>";
-						echo "<font size=\"3\">Zbyt duże NWW - nie można policzyć algorytmu:</font><br><br>";
-						
-						echo "<p><a href=\"index.php\"><input type=\"button\" name='back' id=\"back\" value=\"START MENU\"/></a></p>";
-						$szeregowanie->er = "TAK";
-					}
 				
 				
 				
 				
 					//////////////////////////////////////////////////////////////////////////////
-					
+				
 					if ($szeregowanie->er == "brak" )
 					{
-					
-					$szeregowanie->przygotuj();
+					$szeregowanie->NWW_c = $szeregowanie->NWW();
+					if ( $szeregowanie->NWW_c > 50 ) 
+					{
+						echo "<p style=\"color:white\"> <font size=\"5\"> NWW: ".$szeregowanie->NWW_c."</font></p><br><br>";
+						echo "<font size=\"3\">Zbyt duże NWW - nie można policzyć algorytmu:</font><br><br>";
+						return;
+					}
 					
 					echo "<p><a href=\"#\" id=\"link\" onclick=\"PokazAkapit();\">POKAŻ SZCZEGÓŁY ALGORYTMU</a></p><br>"; //ukrywanie działania algorytmu
 					
@@ -131,7 +124,7 @@ function PokazAkapit()
 					
 					echo "<font size=\"5\">KROK PIERWSZY:</font><br>";
 					echo "<font size=\"3\">Obliczamy NWW - Najmniejszą Wspólną Wielokrotność dla wszystkich okresów zadań:</font><br>";
-				
+					$szeregowanie->NWW_c = $szeregowanie->NWW();
 					echo "<p style=\"color:white\"> <font size=\"5\"> NWW: ".$szeregowanie->NWW_c."</font></p><br><br>";
 					
 					
@@ -173,16 +166,29 @@ function PokazAkapit()
 					
 					echo "<font size=\"5\">KROK CZWARTY:</font><br>";
 					echo "<font size=\"3\">Testy dolnej kwoty i wybór zadania o największym priorytecie:</font><br><br>";
-							
+					$a1 = 0;
+					$aCZAS = 0;
 					
-					for ($as=0; $as < $szeregowanie->NWW_c ; $as++)
+					$STOP = true;
+					
+					while($STOP == true)
 					{
-						$szeregowanie->przydzial($as);
+					
+					
+					$szeregowanie->przydzial($a1);
 						
-						$iter = $as+1;
+					echo"SZEREGOWANIE -> ILE = ".$szeregowanie->ILE."<br>";
+					echo"SZEREGOWANIE -> NWW_c = ".$szeregowanie->NWW_c."<br>";
+					echo"aCZAS = ".$aCZAS."<br>";
+					 						
+					 if ( ($szeregowanie->NWW_c - $aCZAS) < $szeregowanie->czas_zadan_c[ $szeregowanie->kolejnosc_c[$a1] ] ) $STOP = false;
+					    
+					if ($STOP == true)
+					{
+						$iter = $a1+1;
 						echo "<font size=\"3\">ITERACJA: $iter</font><br>";
-						
-						
+							
+							
 							echo "<table><tr style=\"color:white\"><td>Lp.</td><td>Nazwa zadania</td><td>PRIORYTET</td></tr>";
 						
 								 for ($z=0; $z<$szeregowanie->liczba_zadan_c; $z++)
@@ -193,14 +199,15 @@ function PokazAkapit()
 									}
 						echo "</table>";
 						
-						if ( $szeregowanie->kolejnosc_c[$as] == -1 ) 
-						{
-							echo "<font size=\"5\">WYBÓR: brak zdania do wyboru</font><br><br>";
-						}
-						else
-						{						
-							echo "<font size=\"5\">WYBÓR: ".$szeregowanie->nazwa_zadan_c[$szeregowanie->kolejnosc_c[$as]]."</font><br><br>";
-						}
+						echo "<font size=\"3\">WYBÓR: ".$szeregowanie->nazwa_zadan_c[$szeregowanie->kolejnosc_c[$a1]]."</font><br><br>";
+						
+					   //$aCZAS = $aCZAS + $szeregowanie->czas_zadan_c[ $szeregowanie->kolejnosc_c[$a1] ];
+					   $aCZAS = $aCZAS + $szeregowanie->czas_zadan_c[ $szeregowanie->kolejnosc_c[$a1] ] ;
+					   $szeregowanie->ILE = $a1+1;
+					
+						
+						$a1++;
+					}	
 						
 					}
 					
@@ -232,36 +239,6 @@ function PokazAkapit()
 								}
 					echo "</table><br><br>";
 					
-					$sT = $szeregowanie->sprawdzROZW();
-					
-				if (  $sT == false )
-					{
-						echo "<font size=\"3\">ALGORYTM NIE ZNALAZŁ OPTYMALNEGO ROZWIĄZANIA !</font><br><br>";
-						return;
-						
-					}
-					else
-					{
-						echo "<font size=\"3\">ALGORYTM ZNALAZŁ OPTYMALNE ROZWIĄZANIE !</font><br><br>";
-						
-						$tmp=40;
-						echo "<font size=\"2\">USZEREGOWANIE:</font><br>";
-						for ($aa=0; $aa < $szeregowanie->NWW_c ; $aa++)
-							{
-								if ( $szeregowanie->kolejnosc_c[$aa] == -1 ) {echo"";}
-								else
-								{
-								if ( $tmp == $aa) {echo "<br>"; $tmp = $tmp +40;}
-								//echo "<font size=\"5\">".$szeregowanie->nazwa_zadan_c[$szeregowanie->kolejnosc_c[$aa]].",</font>";
-								echo "<font size=\"5\">".( $szeregowanie->kolejnosc_c[$aa]+1).",</font>";
-								
-								}
-							}
-						echo "<br><br>";
-						
-						
-						
-					}
 					
 				///////////////////////////////////////////////////////////////////////////////////////////////
 				//rysowanie wykresu przy pomocy GOOGLE CHARTS
@@ -284,32 +261,58 @@ function drawChart() {
   
 
   <?php
- $OD=0; $DO=1; 
+ $OD=0; $DO=0; 
 $tmpOD[]=0; $tmpDO[]=0;
 
-for ($i=0; $i<($szeregowanie->NWW_c);$i++ )	
+$blokada[]=0;
+for ($i=0; $i<($szeregowanie->ILE);$i++ )	
 {
-	
-	if ($szeregowanie->kolejnosc_c[$i] == -1 ) 
+	$blokada[$i] = 0;
+}
+for ($i=0; $i<($szeregowanie->ILE);$i++ )	
+{
+	if ($i == 0)
 	{
+		$OD=0;
+		$DO = $szeregowanie->czas_zadan_c[$szeregowanie->kolejnosc_c[$i]];
+		echo " ['".$szeregowanie->nazwa_zadan_c[$szeregowanie->kolejnosc_c[$i]]."',".$OD."000,".$DO."000]";
 		
-		$OD++;
-		$DO++;
-	
-		
+		if ( $i != ($szeregowanie->ILE) ) {echo",";}
+		$tmpOD[$szeregowanie->kolejnosc_c[$i]] = $szeregowanie->okres_zadan_c[ $szeregowanie->kolejnosc_c[$i] ];
+		$blokada[ $szeregowanie->kolejnosc_c[$i] ]= $szeregowanie->okres_zadan_c[ $szeregowanie->kolejnosc_c[$i] ];
 		
 	}
 	else
 	{
+			if ($blokada [ $szeregowanie->kolejnosc_c[$i] ] <= $DO )
+				{
+					$OD = $DO;
+					$DO = $OD + $szeregowanie->czas_zadan_c[$szeregowanie->kolejnosc_c[$i]];
+					$blokada[$szeregowanie->kolejnosc_c[$i]] += $szeregowanie->okres_zadan_c[ $szeregowanie->kolejnosc_c[$i] ];
+					
+				}
+				else
+				{
+				$tmp = $blokada[$szeregowanie->kolejnosc_c[$i]] - $OD;
+					$OD = $OD + $tmp;
+					$DO = $OD + $szeregowanie->czas_zadan_c[$szeregowanie->kolejnosc_c[$i]];
+					$blokada[$szeregowanie->kolejnosc_c[$i]] += $szeregowanie->okres_zadan_c[ $szeregowanie->kolejnosc_c[$i] ];
+					
+				}
+			
+				//$OD = $DO;
+				//$DO = $OD + $szeregowanie->czas_zadan_c[$szeregowanie->kolejnosc_c[$i]];
+			
+			
+			
+			
 	
-		echo " ['".$szeregowanie->nazwa_zadan_c[$szeregowanie->kolejnosc_c[$i]]."',".$OD."000,".$DO."000]";
-		$OD=$DO;
-		$DO++;
-		if ($i != $szeregowanie->NWW_c -1 ) {echo",";}		
+	echo " ['".$szeregowanie->nazwa_zadan_c[$szeregowanie->kolejnosc_c[$i]]."',".$OD."000,".$DO."000]";
+	if ( $i != ($szeregowanie->ILE) ) {echo",";}
+	
 	}
-			 
+						 
 }
-
     
 ?>
    ]);            

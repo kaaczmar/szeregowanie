@@ -30,18 +30,10 @@ function sprawdzOkresy()
 	{
 		
 		//zapamiętanie zmiennyh formularza
-		var zmienne = [];
-		for (var i = 0; i < document.getElementById("liczbaZ").value ; i++)
-		{
-			
-			zmienne[i] = [ document.getElementById("nazwa_zadania"+i+"").value, document.getElementById("czas_zadania"+i+"").value ,document.getElementById("okres_zadania"+i+"").value];
-						
-		}
-		
-		
-		
-		
-				document.getElementById("blad").innerHTML = "BŁĄD" +zmienne[0][0]+"";
+				
+				
+		history.back();
+				
 				
 	}
 	
