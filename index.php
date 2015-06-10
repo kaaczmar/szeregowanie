@@ -9,7 +9,9 @@
  * @link        http://www.kaaczmar.pl/Liu-Layland
  * @package		Liu-Layland
  */
- 
+
+ require ("szeregowanie.php"); 
+ $PRE = new szeregowanie;
 ?>
 
 <!DOCTYPE HTML> 
@@ -59,7 +61,49 @@
 		Wprowadź dane za pomocą formularzy<br><br>
 		<a href="DOC/index.html" target=_blank>PRZEJDŹ DO DOKUMETACJI</a><br><br>
 				<?php
+				
+				if ( isset($_POST["back"]) ) 
+						{
+									$PRE->liczba_zadan_c = htmlspecialchars(trim($_POST['liczbaZ']));
+									$REL = htmlspecialchars(trim($_POST['REL']));
+									$ILEBYLO = htmlspecialchars(trim($_POST['liczbaZ']));
 
+									//wczytanie zmiennych ( nazwa zadania, czas zadania, okres zadania) z formularza
+									for($zz=0; $zz < $PRE->liczba_zadan_c; $zz++)
+										{
+											$PRE->nazwa_zadan_c[$zz] = trim($_POST["nazwa_zadania_B$zz"]);    
+											$PRE->czas_zadan_c[$zz] = trim($_POST["czas_zadania_B$zz"]);
+											$PRE->okres_zadan_c[$zz] = trim($_POST["okres_zadania_B$zz"]);																			
+												
+										}						
+						
+						
+							echo"<form action='index-2.php' method='post' id='contactform'>";
+							echo"<fieldset>";
+							echo"<legend><strong>Podaj ilość zadań</strong></legend>";
+							echo "<br>";
+							echo" <label>LICZBA ZADAŃ:</label><br>";
+							
+							for ($zz=0; $zz<$PRE->liczba_zadan_c; $zz++)
+												
+										{			
+											echo"<input type='hidden' id='nazwa_zadania_B$zz' name='nazwa_zadania_B$zz' value='".$PRE->nazwa_zadan_c[$zz]."' />";
+											echo"<input type='hidden' id='czas_zadania_B$zz' name='czas_zadania_B$zz' value='".$PRE->czas_zadan_c[$zz]."' />";														
+											echo"<input type='hidden' id='okres_zadania_B$zz' name='okres_zadania_B$zz' value='".$PRE->okres_zadan_c[$zz]."'/>";
+											
+													
+										}
+							
+							echo"<input type='hidden' id='REL' name='REL' value='".$REL."'/>";
+							echo"<input type='hidden' id='ILEB' name='ILEB' value='".$ILEBYLO."'/>";
+							echo"<input type='number' id='liczba_zadan' name='liczba_zadan' placeholder='liczba zadań' value='".$PRE->liczba_zadan_c."' required='required' min='1' max='8' autocomplete='off'/><br><br>"; 
+							echo"<input type='submit' value='Dalej' id='send1' name='send1' />";
+							echo"<br><br>";
+							echo"</fieldset>";
+							echo"</form>";
+						}
+						else
+						{
 
 						echo"<form action='index-2.php' method='post' id='contactform'>";
 						echo"<fieldset>";
@@ -71,6 +115,7 @@
 						echo"<br><br>";
 						echo"</fieldset>";
 						echo"</form>";
+						}
 
 				?>
 				<br>
